@@ -1,0 +1,16 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  overflow: hidden;
+}
+*{
+  font-family: salatyFont;
+}
+
+
+/*custom fonts*/
+@font-face{
+  font-family: salatyFont;
+  src: url('/public/Fonts/Amiri-Regular.ttf') format('truetype');
+}
