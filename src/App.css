@@ -12,5 +12,5 @@
 /*custom fonts*/
 @font-face{
   font-family: salatyFont;
-  src: url('/public/Fonts/Amiri-Regular.ttf') format('truetype');
+  src: url('/Fonts/Amiri-Regular.ttf') format('truetype');
 }

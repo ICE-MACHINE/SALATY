@@ -23,7 +23,6 @@ interface AboutProps {
 export default function About({open, handleClose}: AboutProps) {
   const { mode } = useMode();
   return (
-    <div>
       <Modal
         open={open}
         onClose={handleClose}
@@ -52,6 +51,5 @@ export default function About({open, handleClose}: AboutProps) {
           </Typography>
         </Box>
       </Modal>
-    </div>
   );
 }

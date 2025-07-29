@@ -4,34 +4,51 @@ import {
   Typography,
   Grid,
   Paper,
+  Box,
   Snackbar,
   Alert,
-  Box,
 } from '@mui/material';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import useMode from '../contexts/Mode/UseMode.tsx';
 import data from '../json/UthmanicWarsh1 Ver05.json';
-import type { Sora } from '../Types/Sora.tsx';
+import type { Sora } from '../Types/SoraType.tsx';
+import SoraModal from './SoraModal.tsx';
 
 interface SoraItem {
   sora: string;
 }
+const sowar: SoraItem[] = data.sowar.map((item: Sora) => ({
+  sora: item.sora,
+}));
 
 export default function Quoran() {
-  const [sowar, setSowar] = useState<SoraItem[]>([]);
-  const [notFound, setNotFound] = useState(false);
+  const [markedSora, setMarkedSora] = useState<number>(-1);
+  const [openSoraModal, setOpenSoraModal] = useState<boolean>(false);
+  const [clikcedSora, setClickedSora] = useState<number>(-1);
+  const handleCloseSoraModal = () => {
+    setOpenSoraModal(false);
+    setClickedSora(-1);
+  };
+  const handleOpenSoraModal = (index:number) => {
+    setOpenSoraModal(true);
+    setClickedSora(index);
+  };
+  const [openSnack,setOpenSnack] = useState<boolean>(false);
   const soraRefs = useRef<Array<HTMLDivElement | null>>([]);
   const { mode } = useMode();
-
+  function goToMarkedSora(){
+    if (markedSora !== -1 && soraRefs.current[markedSora]) {
+      soraRefs.current[markedSora]?.scrollIntoView({ behavior: 'smooth' });
+    }
+    else{
+      setOpenSnack(true);
+    }
+  }
   useEffect(() => {
-    setSowar(() =>
-      data.sowar.map((item: Sora) => ({
-        sora: item.sora,
-      }))
-    );
+    if (soraRefs.current[0]) {
+      soraRefs.current[0]?.scrollIntoView({ behavior: 'smooth' });
+    }
   }, []);
-
- 
 
   return (
     <>
@@ -55,8 +72,15 @@ export default function Quoran() {
          alignItems: 'center'
 
          }}>
-          <Typography variant="h4" align="center" gutterBottom>
+          <Typography sx={{fontFamily:"salatyFont"}} variant="h4" align="center" gutterBottom>
             قائمة السور
+          </Typography>
+         <Typography
+            sx={{fontFamily:"salatyFont", cursor:"pointer"}}
+            variant="h6"
+            onClick={goToMarkedSora}
+          >
+            {markedSora !== -1 ? `الذهاب إلى سورة ${sowar[markedSora].sora}` : "لا توجد سورة محفوظة"}
           </Typography>
         </Container>
       </Box>
@@ -78,6 +102,7 @@ export default function Quoran() {
               key={index}
               display="flex"
               justifyContent="center"
+              alignItems="center"
               ref={el => {
                 soraRefs.current[index] = el;
               }}
@@ -87,7 +112,7 @@ export default function Quoran() {
                 sx={{
                   p: 2,
                   borderRadius: '20px',
-                  width: '80%',
+                  width: '100%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -107,18 +132,30 @@ export default function Quoran() {
                   {index + 1}
                 </Typography>
                 <Typography
-                  sx={{ width: '80%' }}
+                  sx={{ width: '80%', fontFamily: 'salatyFont', cursor: 'pointer' }}
                   display="flex"
                   justifyContent="center"
                   variant="h6"
                   component="div"
+                  onClick={() => {
+                    handleOpenSoraModal(index);
+                  }}
                 >
                   {item.sora}
                 </Typography>
+               
+
                 <BookmarkIcon
                   sx={{
                     fontSize: '2rem',
-                    color: mode === 'dark' ? '#fff' : '#000',
+                    cursor: 'pointer',
+                    color: markedSora === index ? "#007bff" : mode === 'dark' ? '#fff' : '#000',
+                    '&:hover': {
+                      color:"#007bff",
+                    },
+                  }}
+                  onClick={() => {
+                    setMarkedSora((prev)=> prev === index ? -1 : index);
                   }}
                 />
               </Paper>
@@ -126,18 +163,24 @@ export default function Quoran() {
           ))}
         </Grid>
       </Container>
-
-      {/* تنبيه في حالة عدم العثور على السورة */}
-      <Snackbar
-        open={notFound}
-        autoHideDuration={4000}
-        onClose={() => setNotFound(false)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      >
-        <Alert severity="warning" onClose={() => setNotFound(false)}>
-          لم يتم العثور على سورة بهذا الاسم!
-        </Alert>
-      </Snackbar>
+    
+    <Snackbar
+      open={ openSnack }
+      autoHideDuration={4000}
+      onClose={() => setMarkedSora(-1)}
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+    >
+      <Alert severity="warning" onClose={() => setOpenSnack(false)} sx={{ width: '100%' }}>
+        لا توجد سورة محفوظة للانتقال إليها.
+      </Alert>
+    </Snackbar>
+    
+      <SoraModal
+        index={clikcedSora}
+        handleClose={handleCloseSoraModal}
+        open={openSoraModal && clikcedSora >= 0}
+      />
+    
     </>
   );
 }

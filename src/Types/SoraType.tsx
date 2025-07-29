@@ -1,7 +1,7 @@
 type Sora={
     sora: string;
     ayat:string[],
-    soraNum:number
+    soraNum:number,
 }
 
 export type { Sora };
