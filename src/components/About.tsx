@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import useMode from "./../contexts/Mode/UseMode";
+import { getModalBackgroundColor, getTextColor } from '../styles/colors';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -30,8 +31,8 @@ export default function About({open, handleClose}: AboutProps) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style} style={{
-          backgroundColor: mode === 'dark' ? '#333' : '#fff',
-          color: mode === 'dark' ? '#fff' : '#000',
+          backgroundColor: getModalBackgroundColor(mode),
+          color: getTextColor(mode),
           direction: 'rtl'
         }}>
           <Typography id="modal-modal-title" variant="h4" component="h4" style={{fontFamily: 'salatyFont'}} gutterBottom>

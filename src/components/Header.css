@@ -1,26 +1,190 @@
+:root {
+    --light-bg: #88888855;
+    --dark-bg: #33333355;
+    --light-text: #000;
+    --dark-text: #f0f0f0;
+    --primary-color: #007bff;
+}
+
 header{
-    background-color: #f4f4f455;
     padding: 5px 0;
-    color: #000;
     text-align: center;
     font-size: 24px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: fixed;
-    top: 0;
     left: 0;
-    width: 100%;
-    z-index: 1000;
-    transition: background-color 0.3s ease;
+    width: 100vw;
+    z-index: 1001;
+    transition: all 0.3s ease;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-bottom: 1px solid #ddd;
+    font-family: salatyFont;
+    height: 50px;
 }
-.dark-header{
-    background-color: #28282855;
-    color: #f0f0f0;
+.desktop{
+    border-bottom: 1px solid #ddd;
+    top: 0;
+}
+.mobile{
+    border-top: 1px solid #ddd;
+    top:calc(100vh - 60px);
 }
 
+.darkHeader{
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+    border-bottom: 1px solid var(--dark-text);
+}
+
+.lightHeader{
+    background-color: var(--light-bg);
+    color: var(--light-text);
+    border-bottom: 1px solid var(--light-text);
+}
+.mobile-menu{
+    position: fixed;
+    top: 0;
+    right: -50%;
+    width: 50%;
+    height: 100vh;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 20px;
+    transition: right 0.3s ease-in-out;
+    overflow-y: auto;
+}
+
+.mobile-menu.open {
+    right: 0;
+}
+
+.mobile-menu.light {
+    background-color: rgba(255, 255, 255, 0.98);
+    color: var(--light-text);
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu.dark {
+    background-color: rgba(0, 0, 0, 0.98);
+    color: var(--dark-text);
+    border-left: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.mobile-menu-overlay.show {
+    opacity: 1;
+}
+
+.mobile-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.mobile-menu ul li {
+    margin: 0;
+    width: 100%;
+}
+
+.mobile-menu .link {
+    display: block;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: inherit;
+    padding: 15px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-align: right;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mobile-menu .link:hover,
+.mobile-menu .link.active {
+    background-color: var(--primary-color);
+    color: white !important;
+    transform: translateX(-5px);
+}
+
+.mobile-menu .close-menu {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: inherit;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu .close-menu:hover {
+    color: red;
+}
+
+.mobile-menu h1 {
+    font-size: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.mobile-menu h1:hover {
+    color: var(--primary-color);
+}
+
+.mobile-menu button:not(.close-menu) {
+    font-size: 1.2rem;
+    margin-top: 30px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+
+/* Mobile Menu Responsive */
+@media (max-width: 500px) {
+    .mobile-menu {
+        width: 70%;
+        right: -70%;
+    }
+}
+
+@media (max-width: 400px) {
+    .mobile-menu {
+        width: 80%;
+        right: -80%;
+    }
+}
+
+/* Remove old animation */
 h1{
     margin: 0;
     font-size: 2rem;
@@ -51,11 +215,11 @@ header ul li .link{
     transition: color 0.3s ease;
 }
 header ul li .link:hover{
-    color: #007bff;
+    color: var(--primary-color);
 }
 
 header ul li .active{
-    color: #007bff !important;
+    color: var(--primary-color) !important;
     font-weight: bold !important;
 }
 

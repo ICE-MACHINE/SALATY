@@ -1,10 +1,14 @@
 import Grid from '@mui/material/Grid';
 import useMode from "../contexts/Mode/UseMode";
+import useWidth from "../contexts/Width/UseWidth.tsx";
 import EditIcon from '@mui/icons-material/Edit';
 import EditModal from "./HandelEdit";
 import { useState, useEffect } from 'react';
+import { getBackgroundColor, getTextColor } from '../styles/colors';
 export default function Salat(){
     const { mode } = useMode();
+    const { width } = useWidth();
+    const isMobile = width < 700;
     const [open, setOpen] = useState(false);
     const handleClose = () => setOpen(false);
     const [salat,setSalat] = useState<"fajr" | "dhuhr" | "asr" | "maghrib" | "ishaa">("fajr");
@@ -31,27 +35,38 @@ export default function Salat(){
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
-        backgroundColor: mode === 'dark' ? '#3335' : '#eee5',
-        color: mode === 'dark' ? '#fff' : '#000',
+        backgroundColor: getBackgroundColor(mode),
+        color: getTextColor(mode),
     }
     const hStyle: React.CSSProperties = {
         padding: '0',
         margin: '0',
         textAlign: 'center' as const,
     }
+    const cardStyle: React.CSSProperties = {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: isMobile?'row':'column',
+        justifyContent: isMobile?'space-around': 'center',
+        alignItems: 'center',
+        backgroundColor: getBackgroundColor(mode),
+        color: getTextColor(mode),
+        borderRadius: '10px',
+    }
     return(
-   <div style={{ width: '100vw',height:"calc(100vh - 60px)",marginTop:"60px" }}>
-      <Grid container spacing={2} mb={3} p={3}>
-    
-        <Grid size={4}>
-            <div>
+   <div style={{ width: '100vw',height:'100%', }}>
+      <Grid container spacing={2} mb={3} p={3} sx={{color:getTextColor(mode)}}>
+
+        <Grid size={isMobile?12:4}>
+            <div style={cardStyle}>
                 <h2>التوقيت الميلادي</h2>
                 <h3>01/01/2026</h3>
             </div>
         </Grid>
        
-       <Grid size={4}>
-        <div>
+       <Grid size={isMobile?12:4}>
+        <div style={cardStyle}>
             <h2>
                 مواقيت الصلاة لمدينة الرياض
             </h2>
@@ -60,8 +75,8 @@ export default function Salat(){
             </h3>
         </div>
        </Grid>
-        <Grid size={4}>
-            <div>
+        <Grid size={isMobile?12:4}>
+            <div style={cardStyle}>
                 <h2>التوقيت الهجري</h2>
                 <h3>01/01/2026</h3>
             </div>
@@ -79,7 +94,7 @@ export default function Salat(){
                     <EditIcon onClick={() =>{ 
                         setSalat("fajr");
                         setOpen(true)
-                       } } style={{ cursor: 'pointer', color: mode === 'dark' ? '#fff' : '#000' }} />
+                       } } style={{ cursor: 'pointer', color: getTextColor(mode) }} />
                     
                 </div>
             </Grid>
@@ -90,7 +105,7 @@ export default function Salat(){
                     <EditIcon onClick={() => {
                         setSalat("dhuhr");
                         setOpen(true);
-                    }} style={{ cursor: 'pointer', color: mode === 'dark' ? '#fff' : '#000' }} />
+                    }} style={{ cursor: 'pointer', color: getTextColor(mode) }} />
 
                 </div>
             </Grid>
@@ -101,7 +116,7 @@ export default function Salat(){
                     <EditIcon onClick={() => {
                         setSalat("asr");
                         setOpen(true);
-                    }} style={{ cursor: 'pointer', color: mode === 'dark' ? '#fff' : '#000' }} />
+                    }} style={{ cursor: 'pointer', color: getTextColor(mode) }} />
                 </div>
             </Grid>
             <Grid  sx={{display:"flex",justifyContent:"center",alignItems:"center" }} size={10}>
@@ -111,7 +126,7 @@ export default function Salat(){
                     <EditIcon onClick={() => {
                         setSalat("maghrib");
                         setOpen(true);
-                    }} style={{ cursor: 'pointer', color: mode === 'dark' ? '#fff' : '#000' }} />
+                    }} style={{ cursor: 'pointer', color: getTextColor(mode) }} />
 
                 </div>
             </Grid>
@@ -122,7 +137,7 @@ export default function Salat(){
                     <EditIcon onClick={() => {
                         setSalat("ishaa");
                         setOpen(true);
-                    }} style={{ cursor: 'pointer', color: mode === 'dark' ? '#fff' : '#000' }} />
+                    }} style={{ cursor: 'pointer', color: getTextColor(mode) }} />
                 </div>
             </Grid>
         </Grid>

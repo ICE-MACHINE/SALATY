@@ -10,19 +10,17 @@ import {
 } from '@mui/material';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import useMode from '../contexts/Mode/UseMode.tsx';
-import data from '../json/UthmanicWarsh1 Ver05.json';
-import type { Sora } from '../Types/SoraType.tsx';
+import data from '../json/Quran.json';
 import SoraModal from './SoraModal.tsx';
-
-interface SoraItem {
-  sora: string;
-}
-const sowar: SoraItem[] = data.sowar.map((item: Sora) => ({
-  sora: item.sora,
-}));
+import type { Sora } from "../Types/SoraType.tsx";
+import { getBackgroundColor, getTextColor, colors } from '../styles/colors';
+import useMarkedSora from '../contexts/MarkedSora/UseMarkedSora.tsx';
+const sowar:string[] = data.data.surahs.map((sora:Sora)=>{
+  return sora.name;
+})
 
 export default function Quoran() {
-  const [markedSora, setMarkedSora] = useState<number>(-1);
+  const { markedSora, setMarkedSora } = useMarkedSora();
   const [openSoraModal, setOpenSoraModal] = useState<boolean>(false);
   const [clikcedSora, setClickedSora] = useState<number>(-1);
   const handleCloseSoraModal = () => {
@@ -54,12 +52,12 @@ export default function Quoran() {
     <>
       <Box
         sx={{
-          position: 'fixed',
-          top: "58px",
+          position: 'absolute',
+          top: 0,
           left: 0,
           width: '100%',
-          bgcolor: mode === 'dark' ? '#2225' : '#fff5',
-            color: mode === 'dark' ? '#fff' : '#000',
+          bgcolor: getBackgroundColor(mode),
+            color: getTextColor(mode),
           zIndex: 1000,
           py: 0,
           boxShadow: 2,
@@ -80,7 +78,7 @@ export default function Quoran() {
             variant="h6"
             onClick={goToMarkedSora}
           >
-            {markedSora !== -1 ? `الذهاب إلى سورة ${sowar[markedSora].sora}` : "لا توجد سورة محفوظة"}
+            {markedSora !== -1 ? `الذهاب إلى سورة ${sowar[markedSora]}` : "لا توجد سورة محفوظة"}
           </Typography>
         </Container>
       </Box>
@@ -89,7 +87,7 @@ export default function Quoran() {
         sx={{
             pt:1,
           pb: 4,
-          mt:"115px",
+          mt:"60px",
           overflowY: 'auto',
           maxHeight: 'calc(100vh - 115px)',
         }}
@@ -110,29 +108,38 @@ export default function Quoran() {
               <Paper
                 elevation={3}
                 sx={{
-                  p: 2,
                   borderRadius: '20px',
                   width: '100%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  backgroundColor: mode === 'dark' ? '#3335' : '#eee5',
-                  color: mode === 'dark' ? '#fff' : '#000',
+                  backgroundColor: getBackgroundColor(mode),
+                  color: getTextColor(mode),
                   fontSize: '1.7rem',
                   textAlign: 'center',
+                  position:"relative",
                 }}
               >
                 <Typography
-                  sx={{ width: '10%' }}
+                  sx={{ 
+                    width: '10%',
+                    padding:1,
+                    position:"absolute",
+                    top:0,
+                    right:0 ,
+                    borderRadius: '0 20px 20px 0',
+                  }}
                   variant="h6"
                   display="flex"
                   justifyContent="center"
+                  alignItems="center"
                   component="div"
+                  bgcolor={mode === 'dark' ? '#444' : '#ddd'}
                 >
                   {index + 1}
                 </Typography>
                 <Typography
-                  sx={{ width: '80%', fontFamily: 'salatyFont', cursor: 'pointer' }}
+                  sx={{ width: '80%',padding:1, fontFamily: 'salatyFont',marginRight:"10%", cursor: 'pointer' }}
                   display="flex"
                   justifyContent="center"
                   variant="h6"
@@ -141,7 +148,7 @@ export default function Quoran() {
                     handleOpenSoraModal(index);
                   }}
                 >
-                  {item.sora}
+                  {item}
                 </Typography>
                
 
@@ -149,13 +156,22 @@ export default function Quoran() {
                   sx={{
                     fontSize: '2rem',
                     cursor: 'pointer',
-                    color: markedSora === index ? "#007bff" : mode === 'dark' ? '#fff' : '#000',
+                    padding:1,
+                    color: markedSora === index ? colors.primary : getTextColor(mode),
                     '&:hover': {
-                      color:"#007bff",
+                      color: colors.primary,
                     },
+                  '&:focus': {
+                    outline: 'none',
+                    boxShadow: 'none',
+                    color: markedSora === index ? colors.primary : getTextColor(mode),
+                  },
                   }}
-                  onClick={() => {
-                    setMarkedSora((prev)=> prev === index ? -1 : index);
+                  onClick={(e) => {
+                    ((e.currentTarget as unknown) as HTMLElement).blur();
+                    setMarkedSora((prevMarkedSora) => {
+                      return prevMarkedSora === index ? -1 : index;
+                    });
                   }}
                 />
               </Paper>
