@@ -11,7 +11,7 @@ import { getBackgroundColor } from '../styles/colors';
 export default function Header() {
     const { mode } = useMode();
     const { width } = useWidth();
-    const isMobile = width < 700; // Adjust the breakpoint as needed
+    const isMobile = width < 700;
     const [openMenu, setOpenMenu] = useState(false);
 
     const [open, setOpen] = useState(false);
