@@ -15,6 +15,7 @@ import SoraModal from './SoraModal.tsx';
 import type { Sora } from "../Types/SoraType.tsx";
 import { getBackgroundColor, getTextColor, colors } from '../styles/colors';
 import useMarkedSora from '../contexts/MarkedSora/UseMarkedSora.tsx';
+import useWidth from '../contexts/Width/UseWidth.tsx';
 const sowar:string[] = data.data.surahs.map((sora:Sora)=>{
   return sora.name;
 })
@@ -34,6 +35,8 @@ export default function Quoran() {
   const [openSnack,setOpenSnack] = useState<boolean>(false);
   const soraRefs = useRef<Array<HTMLDivElement | null>>([]);
   const { mode } = useMode();
+  const { width } = useWidth();
+  const isMobile = width < 700 ;
   function goToMarkedSora(){
     if (markedSora !== -1 && soraRefs.current[markedSora]) {
       soraRefs.current[markedSora]?.scrollIntoView({ behavior: 'smooth' });
@@ -71,11 +74,12 @@ export default function Quoran() {
 
          }}>
           <Typography sx={{fontFamily:"salatyFont"}} variant="h4" align="center" gutterBottom>
-            قائمة السور
+             السور
           </Typography>
          <Typography
             sx={{fontFamily:"salatyFont", cursor:"pointer"}}
-            variant="h6"
+            variant="body1"
+            component="div"
             onClick={goToMarkedSora}
           >
             {markedSora !== -1 ? `الذهاب إلى سورة ${sowar[markedSora]}` : "لا توجد سورة محفوظة"}
@@ -115,7 +119,7 @@ export default function Quoran() {
                   justifyContent: 'center',
                   backgroundColor: getBackgroundColor(mode),
                   color: getTextColor(mode),
-                  fontSize: '1.7rem',
+                  fontSize: isMobile ? '1.2rem' : '1.7rem',
                   textAlign: 'center',
                   position:"relative",
                 }}
@@ -164,7 +168,7 @@ export default function Quoran() {
                   '&:focus': {
                     outline: 'none',
                     boxShadow: 'none',
-                    color: markedSora === index ? colors.primary : getTextColor(mode),
+                    color: getTextColor(mode)+"! important",
                   },
                   }}
                   onClick={(e) => {

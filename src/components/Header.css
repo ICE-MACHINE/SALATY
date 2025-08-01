@@ -1,6 +1,4 @@
 :root {
-    --light-bg: #88888855;
-    --dark-bg: #33333355;
     --light-text: #000;
     --dark-text: #f0f0f0;
     --primary-color: #007bff;
@@ -32,13 +30,11 @@ header{
 }
 
 .darkHeader{
-    background-color: var(--dark-bg);
     color: var(--dark-text);
     border-bottom: 1px solid var(--dark-text);
 }
 
 .lightHeader{
-    background-color: var(--light-bg);
     color: var(--light-text);
     border-bottom: 1px solid var(--light-text);
 }

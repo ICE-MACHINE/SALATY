@@ -47,6 +47,7 @@ export default function Salat(){
         width: '100%',
         height: '100%',
         display: 'flex',
+        padding:"5px",
         flexDirection: isMobile?'row':'column',
         justifyContent: isMobile?'space-around': 'center',
         alignItems: 'center',
@@ -55,30 +56,30 @@ export default function Salat(){
         borderRadius: '10px',
     }
     return(
-   <div style={{ width: '100vw',height:'100%', }}>
+   <div style={{ width: '100vw',height:"calc(100vh - 60px)",overflowY:"auto" }}>
       <Grid container spacing={2} mb={3} p={3} sx={{color:getTextColor(mode)}}>
 
         <Grid size={isMobile?12:4}>
             <div style={cardStyle}>
-                <h2>التوقيت الميلادي</h2>
-                <h3>01/01/2026</h3>
+                <h2 style={hStyle}>التوقيت الميلادي</h2>
+                <h3 style={hStyle}>01/01/2026</h3>
             </div>
         </Grid>
        
        <Grid size={isMobile?12:4}>
         <div style={cardStyle}>
-            <h2>
-                مواقيت الصلاة لمدينة الرياض
+            <h2 style={hStyle}>
+                  مدينة الرياض
             </h2>
-            <h3>
+            <h3 style={hStyle}>
             {time}
             </h3>
         </div>
        </Grid>
         <Grid size={isMobile?12:4}>
             <div style={cardStyle}>
-                <h2>التوقيت الهجري</h2>
-                <h3>01/01/2026</h3>
+                <h2 style={hStyle}>التوقيت الهجري</h2>
+                <h3 style={hStyle}>01/01/2026</h3>
             </div>
         </Grid>
        

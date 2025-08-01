@@ -1,5 +1,5 @@
 export const colors = {
-  lightBackground: '#55555555',
+  lightBackground: '#555555aa',
   darkBackground: '#33333355',
   
   lightModalBackground: '#fff',

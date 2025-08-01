@@ -1,4 +1,5 @@
-import './App.css'
+import './App.css';
+import 'leaflet/dist/leaflet.css';
 import ModeProvider from './contexts/Mode/ModeProvider.tsx';
 import Header from './components/Header';
 import Salat from "./components/Salat.tsx";
@@ -9,6 +10,7 @@ import useMode from "./contexts/Mode/UseMode.tsx";
 import WidthProvider from './contexts/Width/WidthProvider.tsx';
 import useWidth from "./contexts/Width/UseWidth.tsx";
 import MarkedSoraProvider from './contexts/MarkedSora/MarkedSoraProvider.tsx';
+import SearchLocation from './components/SearchLocation.tsx';
 function App() {
   return (
     <ModeProvider>
@@ -33,6 +35,7 @@ function InnerApp(){
         <Route path="/about" element={<About />} />
         <Route path="/Quoran" element={<Quoran />} />
         <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/SearchLocation" element={<SearchLocation/>}/>
       </Routes>
       </div>
     </div>

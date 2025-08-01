@@ -1,0 +1,33 @@
+{
+  "name": "صلاتي - SALATY",
+  "short_name": "صلاتي",
+  "description": "تطبيق أوقات الصلاة والقرآن الكريم",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
+  "orientation": "portrait",
+  "lang": "ar",
+  "dir": "rtl",
+  "scope": "/",
+  "categories": ["lifestyle", "religion"],
+  "icons": [
+    {
+      "src": "/mosqueIcon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/mosqueIcon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/mosqueIcon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

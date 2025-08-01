@@ -7,6 +7,7 @@ import useWidth from "../contexts/Width/UseWidth";
 import MenuIcon from '@mui/icons-material/Menu';
 import ToggleModeButton from "./ToggleModeButton.tsx";
 import CloseIcon from '@mui/icons-material/Close';
+import { getBackgroundColor } from '../styles/colors';
 export default function Header() {
     const { mode } = useMode();
     const { width } = useWidth();
@@ -39,7 +40,7 @@ export default function Header() {
     return (
         <>
             {!isMobile ? (
-                <header className={mode === "dark" ? "darkHeader desktop" : "lightHeader desktop"}>
+                <header style={{background:getBackgroundColor(mode)}} className={mode === "dark" ? "darkHeader desktop" : "lightHeader desktop"}>
                     <About open={open} handleClose={handleClose} />
                     <h1 onClick={handleOpen}>صلواتي</h1>
                     <ul >
@@ -52,11 +53,14 @@ export default function Header() {
                         <li>
                             <NavLink to="/about" className={({ isActive }) => isActive ? "link active" : "link"}>الأذكار</NavLink>
                         </li>
+                        <li>
+                            <NavLink to="/SearchLocation" className={({ isActive }) => isActive ? "link active" : "link"}>الموقع</NavLink>
+                        </li>
                     </ul>
                    <ToggleModeButton/>
                 </header>
             ) : (
-                <header className={mode === "dark" ? "darkHeader mobile" : "lightHeader mobile"}>
+                <header style={{background:getBackgroundColor(mode)}} className={mode === "dark" ? "darkHeader mobile" : "lightHeader mobile"}>
                     <About open={open} handleClose={handleClose} />
                    {!openMenu&&<MenuIcon onClick={() => setOpenMenu(true)} style={{ cursor: 'pointer', fontSize: '2rem' }}/>}
                    <nav>
@@ -83,33 +87,16 @@ export default function Header() {
                                
                               </div>
                                 <ul >
-                                    <li>
+                                     <li>
                                         <NavLink 
-                                            to="/" 
+                                            to="/SearchLocation" 
                                             className={({ isActive }) => isActive ? "link active" : "link"}
                                             onClick={() => setOpenMenu(false)}
                                         >
-                                            الصلاة
+                                            الموقع
                                         </NavLink>
                                     </li>
-                                    <li>
-                                        <NavLink 
-                                            to="/Quoran" 
-                                            className={({ isActive }) => isActive ? "link active" : "link"}
-                                            onClick={() => setOpenMenu(false)}
-                                        >
-                                            القرآن
-                                        </NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink 
-                                            to="/about" 
-                                            className={({ isActive }) => isActive ? "link active" : "link"}
-                                            onClick={() => setOpenMenu(false)}
-                                        >
-                                            الأذكار
-                                        </NavLink>
-                                    </li>
+                                   
                                 </ul>
                               
                             </div>
