@@ -1,9 +1,9 @@
 const CACHE_NAME = "salaty-v1";
 const urlsToCache = [
-  "/",
-  "/static/js/bundle.js",
-  "/static/css/main.css",
-  "/manifest.json",
+  "/SALATY/",
+  "/SALATY/static/js/bundle.js",
+  "/SALATY/static/css/main.css",
+  "/SALATY/manifest.json",
 ];
 
 // Install event

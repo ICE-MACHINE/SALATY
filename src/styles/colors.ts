@@ -8,7 +8,7 @@ export const colors = {
   lightText: '#000',
   darkText: '#fff',
   
-  primary: '#007bff',
+  primary: '#4CAF50',
 } as const;
 
 export const getBackgroundColor = (mode: 'light' | 'dark') => 
