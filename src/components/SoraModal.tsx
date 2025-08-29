@@ -39,8 +39,8 @@ export default function SoraModal({open=false,index=0, handleClose}: SoraModalPr
         flexDirection: 'column',
         textAlign: 'center' as const,
         position: 'absolute',
-        top:"5%",
-        left:"10%",
+        top:"20px",
+        left:"calc(10% - 20px)",
     };
     
     return (

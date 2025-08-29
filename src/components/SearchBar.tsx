@@ -1,6 +1,10 @@
 import useMode from "../contexts/Mode/UseMode";
+import { useState } from "react";
+import useLocation from "../contexts/Location/UseLocation";
 export default function SearchBar(){
     const { mode } = useMode();
+    const { searchLocation } = useLocation();
+    const [query, setQuery] = useState("");
     return (
         <div style={{
             color: mode === 'dark' ? '#fff' : '#000',
@@ -13,6 +17,8 @@ export default function SearchBar(){
         }}>
             <input
                 type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
                 placeholder="ابحث هنا..."
                 style={{
                     width: '80%',
@@ -31,7 +37,11 @@ export default function SearchBar(){
                     color: '#fff',
                     cursor: 'pointer'
                 }}
-                onClick={() => alert('بحث')}
+                disabled={!query.trim()}
+                onClick={() =>{
+                    searchLocation(query.trim());
+                    setQuery("");
+                }}
             >
                 بحث
             </button>

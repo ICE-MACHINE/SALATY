@@ -74,8 +74,8 @@ export default function Header() {
                                 <button onClick={() => setOpenMenu(false)} className="close-menu">
                                     <CloseIcon style={{ fontSize: '2rem' }} />
                                 </button>
-                              <div style={{paddingTop:"20px", width:"100%",display:"flex",justifyContent:"space-around",alignItems:"center"}}>
-                                  <h1 style={{display:"inline"}} onClick={() => {
+                              <div style={{marginTop:"40px", borderRadius:"8px",width:"100%",display:"flex",justifyContent:"space-around",alignItems:"center"}}>
+                                  <h1 onClick={() => {
                                     handleOpen();
                                     setOpenMenu(false);
                                 }}>صلواتي</h1>
@@ -87,8 +87,9 @@ export default function Header() {
                                
                               </div>
                                 <ul >
-                                     <li>
+                                     <li >
                                         <NavLink 
+                                        style={{background: getBackgroundColor(mode)}}
                                             to="/SearchLocation" 
                                             className={({ isActive }) => isActive ? "link active" : "link"}
                                             onClick={() => setOpenMenu(false)}

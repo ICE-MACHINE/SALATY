@@ -28,6 +28,13 @@ header{
     border-top: 1px solid #ddd;
     top:calc(100vh - 60px);
 }
+.mobile ul li .link{
+    font-size: 18px;
+}
+.mobile ul li .active{
+      border-top: 3px solid var(--primary-color);
+    padding: 14px 7px 0 7px ;
+}
 
 .darkHeader{
     color: var(--dark-text);
@@ -51,9 +58,9 @@ header{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: stretch;
+    align-items: center;
     padding: 20px;
-    transition: right 0.3s ease-in-out;
+    transition: right 0.5s ease-in-out;
     overflow-y: auto;
 }
 
@@ -121,7 +128,7 @@ header{
 
 .mobile-menu .link:hover,
 .mobile-menu .link.active {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color) !important;
     color: white !important;
     transform: translateX(-5px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -143,6 +150,7 @@ header{
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    transition: transform 0.7s ease;
 }
 
 .mobile-menu .close-menu:hover,
@@ -156,6 +164,8 @@ header{
     text-align: center;
     cursor: pointer;
     transition: color 0.3s ease;
+    font-weight: 900;
+    display:inline;
 }
 
 .mobile-menu h1:hover {
@@ -164,7 +174,6 @@ header{
 
 .mobile-menu button:not(.close-menu) {
     font-size: 1.2rem;
-    margin-top: 30px;
     border-radius: 8px;
     transition: all 0.3s ease;
     text-align: center;
@@ -174,14 +183,14 @@ header{
 /* Mobile Menu Responsive */
 @media (max-width: 500px) {
     .mobile-menu {
-        width: 70%;
+        width: 50%;
         right: -70%;
     }
 }
 
 @media (max-width: 400px) {
     .mobile-menu {
-        width: 80%;
+        width: 70%;
         right: -80%;
     }
 }
@@ -223,8 +232,6 @@ header ul li .link:hover{
 header ul li .active{
     color: var(--primary-color) !important;
     font-weight: bold !important;
-    border-top: 3px solid var(--primary-color);
-    padding: 7px 5px 0 5px ;
 }
 
 button{

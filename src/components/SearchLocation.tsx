@@ -2,11 +2,12 @@ import useWidth from "../contexts/Width/UseWidth.tsx";
 import useMode from "../contexts/Mode/UseMode";
 import Map from "./Map.tsx";
 import SearchBar from "./SearchBar.tsx";
+import useLocation from "../contexts/Location/UseLocation.tsx";
 export default function SearchLocation(){
     const { mode } = useMode();
     const { width } = useWidth();
     const isMobile = width < 700;
-
+    const { getPosition } = useLocation();
     return (
         <div style={{
              height: 'calc(100vh - 60px)',
@@ -15,7 +16,7 @@ export default function SearchLocation(){
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'spce-around',
+                justifyContent: 'space-around',
                 gap:"20px"
               }}>
             <SearchBar />
@@ -36,7 +37,7 @@ export default function SearchLocation(){
                 padding: '10px',
                 borderRadius: '5px'
             }}>
-                موقعك الحالي
+                موقعك الحالي {getPosition().place || "غير معروف"}
             </div>
         </div>
     );

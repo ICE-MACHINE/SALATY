@@ -5,6 +5,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import EditModal from "./HandelEdit";
 import { useState, useEffect } from 'react';
 import { getBackgroundColor, getTextColor } from '../styles/colors';
+import useMissedSalat from "../functions/missedSalat"; // adjust path if you placed it elsewhere
+import useLocation from '../contexts/Location/UseLocation.tsx';
 export default function Salat(){
     const { mode } = useMode();
     const { width } = useWidth();
@@ -17,6 +19,7 @@ export default function Salat(){
             .replace('AM', 'ص')
             .replace('PM', 'م')
     );
+    const { place } = useLocation();
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -35,63 +38,81 @@ export default function Salat(){
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
-        backgroundColor: getBackgroundColor(mode),
         color: getTextColor(mode),
+        background: getBackgroundColor(mode),
+
     }
     const hStyle: React.CSSProperties = {
         padding: '0',
         margin: '0',
         textAlign: 'center' as const,
+        fontSize: isMobile ? '1em' : '1.2em',
+
     }
     const cardStyle: React.CSSProperties = {
-        width: '100%',
+        minWidth: '30%',
+        width: isMobile ? '100%' : '50%',
         height: '100%',
         display: 'flex',
         padding:"5px",
-        flexDirection: isMobile?'row':'column',
-        justifyContent: isMobile?'space-around': 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: getBackgroundColor(mode),
         color: getTextColor(mode),
         borderRadius: '10px',
     }
+    // given you have the time string (e.g. "04:30")
+    const isFajrMissed = useMissedSalat("04:30");
     return(
    <div style={{ width: '100vw',height:"calc(100vh - 60px)",overflowY:"auto" }}>
       <Grid container spacing={2} mb={3} p={3} sx={{color:getTextColor(mode)}}>
 
-        <Grid size={isMobile?12:4}>
+        <Grid size={isMobile? 12 : 6}
+         sx={{
+            display: 'flex', justifyContent: 'start', alignItems: 'end'
+       }}
+        >
             <div style={cardStyle}>
-                <h2 style={hStyle}>التوقيت الميلادي</h2>
-                <h3 style={hStyle}>01/01/2026</h3>
+                <h4 style={hStyle}  >
+                     الجمعة
+                     <span style={{ fontSize: isMobile?'0.8em':"1em",  }}>  01/01/2026</span>  
+                     </h4>
+                <h5 style={hStyle}>    01/01/1147</h5>
             </div>
         </Grid>
-       
-       <Grid size={isMobile?12:4}>
+
+       <Grid size={isMobile ? 12 : 6}
+       sx={{
+            display: 'flex', justifyContent: 'end', alignItems: 'end'
+       }}
+       >
         <div style={cardStyle}>
-            <h2 style={hStyle}>
-                  مدينة الرياض
-            </h2>
-            <h3 style={hStyle}>
+            <h4 style={hStyle}>
+                  مدينة {place}
+            </h4>
+            <h5 style={hStyle}>
             {time}
-            </h3>
+            </h5>
         </div>
        </Grid>
-        <Grid size={isMobile?12:4}>
-            <div style={cardStyle}>
-                <h2 style={hStyle}>التوقيت الهجري</h2>
-                <h3 style={hStyle}>01/01/2026</h3>
-            </div>
-        </Grid>
+      
        
       
       </Grid>
         <Grid sx={{
             display: 'flex', justifyContent: 'center', alignItems: 'center'
         }} container spacing={2}>
-            <Grid  sx={{display:"flex",justifyContent:"center",alignItems:"center" }} size={10}>
-                <div style={salatStyle}>
-                    <h2 style={hStyle}>الفجر</h2>
-                    <h3 style={hStyle}>04:30</h3>
+            <Grid 
+             sx={{
+                display:"flex",
+                justifyContent:"center",
+                alignItems:"center" ,
+                opacity: isFajrMissed? "0.7":"1"
+                }} size={10}>
+                <div style={salatStyle} >
+                    <h4 style={hStyle}>الفجر</h4>
+                    <h5 style={hStyle}>04:30</h5>
                     <EditIcon onClick={() =>{ 
                         setSalat("fajr");
                         setOpen(true)
@@ -101,8 +122,8 @@ export default function Salat(){
             </Grid>
             <Grid sx={{display:"flex",justifyContent:"center",alignItems:"center" }} size={10}>
                 <div style={salatStyle}>
-                    <h2 style={hStyle}>الظهر</h2>
-                    <h3 style={hStyle}>12:00</h3>
+                    <h4 style={hStyle}>الظهر</h4>
+                    <h5 style={hStyle}>12:00</h5>
                     <EditIcon onClick={() => {
                         setSalat("dhuhr");
                         setOpen(true);
@@ -112,8 +133,8 @@ export default function Salat(){
             </Grid>
             <Grid sx={{display:"flex",justifyContent:"center",alignItems:"center" }} size={10}>
                 <div style={salatStyle}>
-                    <h2 style={hStyle}>العصر</h2>
-                    <h3 style={hStyle}>15:30</h3>
+                    <h4 style={hStyle}>العصر</h4>
+                    <h5 style={hStyle}>15:30</h5>
                     <EditIcon onClick={() => {
                         setSalat("asr");
                         setOpen(true);
@@ -122,8 +143,8 @@ export default function Salat(){
             </Grid>
             <Grid  sx={{display:"flex",justifyContent:"center",alignItems:"center" }} size={10}>
                 <div style={salatStyle}>
-                    <h2 style={hStyle}>المغرب</h2>
-                    <h3 style={hStyle}>18:00</h3>
+                    <h4 style={hStyle}>المغرب</h4>
+                    <h5 style={hStyle}>18:00</h5>
                     <EditIcon onClick={() => {
                         setSalat("maghrib");
                         setOpen(true);
@@ -133,8 +154,8 @@ export default function Salat(){
             </Grid>
             <Grid sx={{display:"flex",justifyContent:"center",alignItems:"center" }} size={10}>
                 <div style={salatStyle}>
-                    <h2 style={hStyle}>العشاء</h2>
-                    <h3 style={hStyle}>19:30</h3>
+                    <h4 style={hStyle}>العشاء</h4>
+                    <h5 style={hStyle}>19:30</h5>
                     <EditIcon onClick={() => {
                         setSalat("ishaa");
                         setOpen(true);
