@@ -1,11 +1,13 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
+// دالة صغيرة تحدد إن كان النشر على GitHub Pages
+const isGitHubPages = process.env.GITHUB_ACTIONS === 'true'
+
+// لما يكون GitHub Pages (repo SALATY) نخلي base=/SALATY/
+// أما Vercel / Netlify / أي دومين عادي نخلي base=./
 export default defineConfig({
-  // When deploying to GitHub Pages under a repo (not the user site), set base to the repo name.
-  // package.json `homepage` is "https://ICE-MACHINE.github.io/SALATY" so base should be '/SALATY/'.
-  base: '/SALATY/',
+  base: isGitHubPages ? '/SALATY/' : './',
   plugins: [react()],
   build: {
     rollupOptions: {
