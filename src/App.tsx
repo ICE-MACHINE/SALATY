@@ -12,14 +12,17 @@ import useWidth from "./contexts/Width/UseWidth.tsx";
 import MarkedSoraProvider from './contexts/MarkedSora/MarkedSoraProvider.tsx';
 import SearchLocation from './components/SearchLocation.tsx';
 import LocationProvider from "./contexts/Location/LocationProvider.tsx";
+import SalatProvider from "./contexts/Salat/SalatProvider.tsx";
 function App() {
   return (
     <ModeProvider>
       <WidthProvider>
         <MarkedSoraProvider>
           <LocationProvider>
+            <SalatProvider>
             <Header />
           <InnerApp />
+            </SalatProvider>
           </LocationProvider>
         </MarkedSoraProvider>
       </WidthProvider>

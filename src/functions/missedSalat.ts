@@ -3,14 +3,22 @@ import { useEffect, useState } from "react";
 /**
  * Returns true when the given time (HH:mm, 24-hour) has passed for today.
  * Example time: "04:30" or "16:05"
+ * If `time` is falsy or invalid, the hook returns false.
  */
-export default function useMissedSalat(time: string): boolean {
+export default function useMissedSalat(time?: string): boolean {
   const [missed, setMissed] = useState<boolean>(() => {
+    if (!time) return false;
     const target = parseTimeToToday(time);
     return Date.now() > target.getTime();
   });
 
   useEffect(() => {
+    if (!time) {
+      // No valid time: ensure missed is false and don't start an interval.
+      setMissed(false);
+      return;
+    }
+
     function check() {
       const target = parseTimeToToday(time);
       setMissed(Date.now() > target.getTime());
@@ -25,10 +33,17 @@ export default function useMissedSalat(time: string): boolean {
   return missed;
 }
 
-function parseTimeToToday(time: string): Date {
-  const [hStr = "0", mStr = "0"] = time.split(":");
-  const h = Number(hStr);
-  const m = Number(mStr);
+function parseTimeToToday(time?: string): Date {
+  if (!time) {
+    // If invalid or undefined, return a date far in the future so it's never considered missed.
+    return new Date(8640000000000000);
+  }
+
+  const parts = time.split(":").map((p) => p.trim());
+  const hStr = parts[0] ?? "0";
+  const mStr = parts[1] ?? "0";
+  const h = Number(hStr) || 0;
+  const m = Number(mStr) || 0;
   const now = new Date();
-  return new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m, 0, 0);
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate(), Math.min(Math.max(h, 0), 23), Math.min(Math.max(m, 0), 59), 0, 0);
 }

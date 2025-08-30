@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { getBackgroundColor, getTextColor } from '../styles/colors';
 import useMissedSalat from "../functions/missedSalat"; // adjust path if you placed it elsewhere
 import useLocation from '../contexts/Location/UseLocation.tsx';
+import useSalat from "../contexts/Salat/UseSalat";
 export default function Salat(){
     const { mode } = useMode();
     const { width } = useWidth();
@@ -20,6 +21,7 @@ export default function Salat(){
             .replace('PM', 'م')
     );
     const { place } = useLocation();
+    const salatData: any = useSalat();
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -62,8 +64,6 @@ export default function Salat(){
         color: getTextColor(mode),
         borderRadius: '10px',
     }
-    // given you have the time string (e.g. "04:30")
-    const isFajrMissed = useMissedSalat("04:30");
     return(
    <div style={{ width: '100vw',height:"calc(100vh - 60px)",overflowY:"auto" }}>
       <Grid container spacing={2} mb={3} p={3} sx={{color:getTextColor(mode)}}>
@@ -75,10 +75,10 @@ export default function Salat(){
         >
             <div style={cardStyle}>
                 <h4 style={hStyle}  >
-                     الجمعة
-                     <span style={{ fontSize: isMobile?'0.8em':"1em",  }}>  01/01/2026</span>  
+                     {salatData?.todayDate.day || "اليوم"}
+                     <span style={{ fontSize: isMobile?'0.8em':"1em",  }}>{salatData?.todayDate.gregorian || "01-01-2000"}</span>  
                      </h4>
-                <h5 style={hStyle}>    01/01/1147</h5>
+                <h5 style={hStyle}>    {salatData?.todayDate.hijri || "01-01-1400"}</h5>
             </div>
         </Grid>
 
@@ -108,11 +108,11 @@ export default function Salat(){
                 display:"flex",
                 justifyContent:"center",
                 alignItems:"center" ,
-                opacity: isFajrMissed? "0.7":"1"
+                opacity: useMissedSalat(salatData?.todayTimings.find((s: any) => s.salatName === "Fajr")?.salatTime) ? "0.7" : "1"
                 }} size={10}>
                 <div style={salatStyle} >
                     <h4 style={hStyle}>الفجر</h4>
-                    <h5 style={hStyle}>04:30</h5>
+                    <h5 style={hStyle}>{salatData?.todayTimings.find((s: any) => s.salatName === "Fajr")?.salatTime || "04:30"}</h5>
                     <EditIcon onClick={() =>{ 
                         setSalat("fajr");
                         setOpen(true)
@@ -120,10 +120,17 @@ export default function Salat(){
                     
                 </div>
             </Grid>
-            <Grid sx={{display:"flex",justifyContent:"center",alignItems:"center" }} size={10}>
+            <Grid 
+             sx={{
+                display:"flex",
+                justifyContent:"center",
+                alignItems:"center" ,
+                opacity: useMissedSalat(salatData?.todayTimings.find((s: any) => s.salatName === "Dhuhr")?.salatTime) ? "0.7" : "1"
+                }} 
+            size={10}>
                 <div style={salatStyle}>
                     <h4 style={hStyle}>الظهر</h4>
-                    <h5 style={hStyle}>12:00</h5>
+                    <h5 style={hStyle}>{salatData?.todayTimings.find((s: any) => s.salatName === "Dhuhr")?.salatTime || "12:55"}</h5>
                     <EditIcon onClick={() => {
                         setSalat("dhuhr");
                         setOpen(true);
@@ -131,20 +138,34 @@ export default function Salat(){
 
                 </div>
             </Grid>
-            <Grid sx={{display:"flex",justifyContent:"center",alignItems:"center" }} size={10}>
+            <Grid 
+             sx={{
+                display:"flex",
+                justifyContent:"center",
+                alignItems:"center" ,
+                opacity: useMissedSalat(salatData?.todayTimings.find((s: any) => s.salatName === "Asr")?.salatTime) ? "0.7" : "1"
+                }} 
+            size={10}>
                 <div style={salatStyle}>
                     <h4 style={hStyle}>العصر</h4>
-                    <h5 style={hStyle}>15:30</h5>
+                    <h5 style={hStyle}>{salatData?.todayTimings.find((s: any) => s.salatName === "Asr")?.salatTime || "16:30"}</h5>
                     <EditIcon onClick={() => {
                         setSalat("asr");
                         setOpen(true);
                     }} style={{ cursor: 'pointer', color: getTextColor(mode) }} />
                 </div>
             </Grid>
-            <Grid  sx={{display:"flex",justifyContent:"center",alignItems:"center" }} size={10}>
+            <Grid 
+             sx={{
+                display:"flex",
+                justifyContent:"center",
+                alignItems:"center" ,
+                opacity: useMissedSalat(salatData?.todayTimings.find((s: any) => s.salatName === "Maghrib")?.salatTime) ? "0.7" : "1"
+                }} 
+              size={10}>
                 <div style={salatStyle}>
                     <h4 style={hStyle}>المغرب</h4>
-                    <h5 style={hStyle}>18:00</h5>
+                    <h5 style={hStyle}>{salatData?.todayTimings.find((s: any) => s.salatName === "Maghrib")?.salatTime || "19:30"}</h5>
                     <EditIcon onClick={() => {
                         setSalat("maghrib");
                         setOpen(true);
@@ -152,10 +173,17 @@ export default function Salat(){
 
                 </div>
             </Grid>
-            <Grid sx={{display:"flex",justifyContent:"center",alignItems:"center" }} size={10}>
+            <Grid
+             sx={{
+                display:"flex",
+                justifyContent:"center",
+                alignItems:"center" ,
+                opacity: useMissedSalat(salatData?.todayTimings.find((s: any) => s.salatName === "Isha")?.salatTime) ? "0.7" : "1"
+                }} 
+              size={10}>
                 <div style={salatStyle}>
                     <h4 style={hStyle}>العشاء</h4>
-                    <h5 style={hStyle}>19:30</h5>
+                    <h5 style={hStyle}>{salatData?.todayTimings.find((s: any) => s.salatName === "Isha")?.salatTime || "20:55"}</h5>
                     <EditIcon onClick={() => {
                         setSalat("ishaa");
                         setOpen(true);
