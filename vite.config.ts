@@ -3,7 +3,9 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // base: '/',
+  // When deploying to GitHub Pages under a repo (not the user site), set base to the repo name.
+  // package.json `homepage` is "https://ICE-MACHINE.github.io/SALATY" so base should be '/SALATY/'.
+  base: '/SALATY/',
   plugins: [react()],
   build: {
     rollupOptions: {
