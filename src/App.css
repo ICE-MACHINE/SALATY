@@ -4,7 +4,7 @@
   overflow: hidden;
 }
 *{
-  font-family: salatyFont;
+  font-family: salatyFont !important;
 }
 .App{
   background-size: cover;
@@ -19,12 +19,17 @@
   align-items: center;
   justify-content: center;
 }
-.dark-mode{
-    background-image: url('./bg.jpg');
+.lightMob{
+  background-image: url('./lightPhoneBg.jpeg') !important;
 }
-.light-mode{
-  background-image: url('./lightBg.jpg');
-  
+.darkMob{
+  background-image: url('./phoneBg.jpeg') !important;
+}
+.lightDesk{
+  background-image: url('./lightBg.jpeg') !important;
+}
+.darkDesk{
+  background-image: url('./bg.jpeg') !important;
 }
 .container{
   width: 100%;
@@ -45,4 +50,8 @@
 @font-face{
   font-family: salatyFont;
   src: url('/Fonts/Amiri-Regular.ttf') format('truetype');
+}
+
+::-webkit-scrollbar{
+  display: none;
 }

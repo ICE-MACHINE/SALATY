@@ -39,7 +39,10 @@ export default function SalatProvider({ children }: {children: React.ReactNode})
             };
 
             setSalatData(transformed);
-            try { localStorage.setItem("salatDataToday", JSON.stringify(transformed)); } catch {}
+            try { localStorage.setItem("salatDataToday", JSON.stringify(transformed)); } catch {
+                // ignore local storage write errors
+                console.error("Failed to save salat data to local storage");
+            }
         };
 
         fetchData();

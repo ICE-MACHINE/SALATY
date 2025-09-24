@@ -69,14 +69,14 @@ header{
 }
 
 .mobile-menu.light {
-    background-image: url("/src/lightBg.jpg");
+    background-image: url("/src/lightPhoneBg.jpeg");
     color: var(--light-text);
     border-left: 2px solid rgba(0, 0, 0, 0.1);
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .mobile-menu.dark {
-    background-image: url("/src/bg.jpg");
+    background-image: url("/src/phoneBg.jpeg");
     color: var(--dark-text);
     border-left: 2px solid rgba(255, 255, 255, 0.2);
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);

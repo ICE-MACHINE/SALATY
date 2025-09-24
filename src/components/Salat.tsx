@@ -1,8 +1,8 @@
 import Grid from '@mui/material/Grid';
 import useMode from "../contexts/Mode/UseMode";
 import useWidth from "../contexts/Width/UseWidth.tsx";
+// @ts-ignore: module '@mui/icons-material/Edit' has no declaration file
 import EditIcon from '@mui/icons-material/Edit';
-import EditModal from "./HandelEdit";
 import { useState, useEffect } from 'react';
 import { getBackgroundColor, getTextColor } from '../styles/colors';
 import useMissedSalat from "../functions/missedSalat"; // adjust path if you placed it elsewhere
@@ -12,9 +12,6 @@ export default function Salat(){
     const { mode } = useMode();
     const { width } = useWidth();
     const isMobile = width < 700;
-    const [open, setOpen] = useState(false);
-    const handleClose = () => setOpen(false);
-    const [salat,setSalat] = useState<"fajr" | "dhuhr" | "asr" | "maghrib" | "ishaa">("fajr");
     const [time, setTime] = useState(
         new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             .replace('AM', 'ص')
@@ -36,7 +33,7 @@ export default function Salat(){
     const salatStyle={
         padding: '10px',
         borderRadius: '20px',
-        width: '80%',
+        width: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
@@ -108,15 +105,12 @@ export default function Salat(){
                 display:"flex",
                 justifyContent:"center",
                 alignItems:"center" ,
-                opacity: useMissedSalat(salatData?.todayTimings.find((s: any) => s.salatName === "Fajr")?.salatTime) ? "0.7" : "1"
+                border: useMissedSalat(salatData?.todayTimings.find((s: any) => s.salatName === "Fajr")?.salatTime) ? "none" : "2px solid #4CAF50",
+                borderRadius: "20px",
                 }} size={10}>
                 <div style={salatStyle} >
                     <h4 style={hStyle}>الفجر</h4>
                     <h5 style={hStyle}>{salatData?.todayTimings.find((s: any) => s.salatName === "Fajr")?.salatTime || "04:30"}</h5>
-                    <EditIcon onClick={() =>{ 
-                        setSalat("fajr");
-                        setOpen(true)
-                       } } style={{ cursor: 'pointer', color: getTextColor(mode) }} />
                     
                 </div>
             </Grid>
@@ -125,16 +119,13 @@ export default function Salat(){
                 display:"flex",
                 justifyContent:"center",
                 alignItems:"center" ,
-                opacity: useMissedSalat(salatData?.todayTimings.find((s: any) => s.salatName === "Dhuhr")?.salatTime) ? "0.7" : "1"
+                border: useMissedSalat(salatData?.todayTimings.find((s: any) => s.salatName === "Dhuhr")?.salatTime) ? "none" : "2px solid #4CAF50",
+                borderRadius: "20px",
                 }} 
             size={10}>
                 <div style={salatStyle}>
                     <h4 style={hStyle}>الظهر</h4>
                     <h5 style={hStyle}>{salatData?.todayTimings.find((s: any) => s.salatName === "Dhuhr")?.salatTime || "12:55"}</h5>
-                    <EditIcon onClick={() => {
-                        setSalat("dhuhr");
-                        setOpen(true);
-                    }} style={{ cursor: 'pointer', color: getTextColor(mode) }} />
 
                 </div>
             </Grid>
@@ -143,16 +134,14 @@ export default function Salat(){
                 display:"flex",
                 justifyContent:"center",
                 alignItems:"center" ,
-                opacity: useMissedSalat(salatData?.todayTimings.find((s: any) => s.salatName === "Asr")?.salatTime) ? "0.7" : "1"
+                border: useMissedSalat(salatData?.todayTimings.find((s: any) => s.salatName === "Asr")?.salatTime) ? "none" : "2px solid #4CAF50",
+                borderRadius: "20px",
                 }} 
             size={10}>
                 <div style={salatStyle}>
                     <h4 style={hStyle}>العصر</h4>
                     <h5 style={hStyle}>{salatData?.todayTimings.find((s: any) => s.salatName === "Asr")?.salatTime || "16:30"}</h5>
-                    <EditIcon onClick={() => {
-                        setSalat("asr");
-                        setOpen(true);
-                    }} style={{ cursor: 'pointer', color: getTextColor(mode) }} />
+                   
                 </div>
             </Grid>
             <Grid 
@@ -160,16 +149,14 @@ export default function Salat(){
                 display:"flex",
                 justifyContent:"center",
                 alignItems:"center" ,
-                opacity: useMissedSalat(salatData?.todayTimings.find((s: any) => s.salatName === "Maghrib")?.salatTime) ? "0.7" : "1"
+                border: useMissedSalat(salatData?.todayTimings.find((s: any) => s.salatName === "Maghrib")?.salatTime) ? "none" : "2px solid #4CAF50",
+                borderRadius: "20px",
                 }} 
               size={10}>
                 <div style={salatStyle}>
                     <h4 style={hStyle}>المغرب</h4>
                     <h5 style={hStyle}>{salatData?.todayTimings.find((s: any) => s.salatName === "Maghrib")?.salatTime || "19:30"}</h5>
-                    <EditIcon onClick={() => {
-                        setSalat("maghrib");
-                        setOpen(true);
-                    }} style={{ cursor: 'pointer', color: getTextColor(mode) }} />
+                   
 
                 </div>
             </Grid>
@@ -178,20 +165,16 @@ export default function Salat(){
                 display:"flex",
                 justifyContent:"center",
                 alignItems:"center" ,
-                opacity: useMissedSalat(salatData?.todayTimings.find((s: any) => s.salatName === "Isha")?.salatTime) ? "0.7" : "1"
+                border: useMissedSalat(salatData?.todayTimings.find((s: any) => s.salatName === "Isha")?.salatTime) ? "none" : "2px solid #4CAF50",
+                borderRadius: "20px",
                 }} 
               size={10}>
                 <div style={salatStyle}>
                     <h4 style={hStyle}>العشاء</h4>
-                    <h5 style={hStyle}>{salatData?.todayTimings.find((s: any) => s.salatName === "Isha")?.salatTime || "20:55"}</h5>
-                    <EditIcon onClick={() => {
-                        setSalat("ishaa");
-                        setOpen(true);
-                    }} style={{ cursor: 'pointer', color: getTextColor(mode) }} />
+                  <h5 style={hStyle}>{salatData?.todayTimings.find((s: any) => s.salatName === "Isha")?.salatTime || "21:00"}</h5>
                 </div>
             </Grid>
         </Grid>
-        <EditModal salat={salat} open={open} handleClose={handleClose} />
     </div>
     )
 }

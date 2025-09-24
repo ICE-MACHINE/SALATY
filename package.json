@@ -2,7 +2,7 @@
   "homepage": "https://ICE-MACHINE.github.io/SALALY",
   "name": "SALALY",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.3.1",
   "type": "module",
   "scripts": {
     "dev": "vite",

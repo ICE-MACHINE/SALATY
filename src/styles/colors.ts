@@ -1,13 +1,11 @@
 export const colors = {
-  lightBackground: '#555555aa',
-  darkBackground: '#33333355',
+  lightBackground: '#888a',
+  darkBackground: '#333a',
   
   lightModalBackground: '#fff',
   darkModalBackground: '#333',
-  
   lightText: '#000',
   darkText: '#fff',
-  
   primary: '#4CAF50',
 } as const;
 

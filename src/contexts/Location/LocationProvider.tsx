@@ -15,7 +15,7 @@ export default function LocationProvider({ children }: {children: React.ReactNod
         const stored = localStorage.getItem(LNG_KEY);
         return stored ? Number(stored) : 3.06;
     });
-    const [place, setPlace] = useState<string | undefined>(() => {
+    const [place, setPlace] = useState<string | undefined>( () => {
         return localStorage.getItem(PLACE_KEY) || undefined;
     });
 
@@ -26,6 +26,12 @@ export default function LocationProvider({ children }: {children: React.ReactNod
     useEffect(() => {
         localStorage.setItem(LNG_KEY, String(lng));
     }, [lng]);
+
+      useEffect(() => {
+        if (!place) {
+        updatePlace(lat, lng);
+        }
+    }, []);
 
     useEffect(() => {
         if (place !== undefined) {

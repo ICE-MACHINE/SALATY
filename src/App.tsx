@@ -4,6 +4,7 @@ import ModeProvider from './contexts/Mode/ModeProvider.tsx';
 import Header from './components/Header';
 import Salat from "./components/Salat.tsx";
 import About from "./components/Aboutt.tsx";
+import Dhikr from "./components/Dhikr.tsx";
 import { Routes, Route, Navigate} from "react-router-dom";
 import Quoran from "./components/Quoran.tsx";
 import useMode from "./contexts/Mode/UseMode.tsx";
@@ -34,12 +35,16 @@ function InnerApp(){
   const { width } = useWidth();
   const isMobile = width < 700; // Adjust the breakpoint as needed
   return (
-    <div className={mode === 'dark' ? 'App dark-mode' : 'App light-mode'}>
+    <div
+     className={mode === 'dark' && isMobile ? 'App dark-mode darkMob' : mode === 'dark' && !isMobile ? 'App light-mode darkDesk' : mode === 'light' && isMobile ? 'App light-mode lightMob' : 'App light-mode lightDesk'}>
       <Header />
       <div className={isMobile ? 'container mobile-container' : 'container desktop-container'}>
       <Routes>
         <Route path="/" element={<Salat />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about">
+        <Route index element={<About />} />
+        <Route path=":section" element={<Dhikr />} />
+        </Route>
         <Route path="/Quoran" element={<Quoran />} />
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route path="/SearchLocation" element={<SearchLocation/>}/>
