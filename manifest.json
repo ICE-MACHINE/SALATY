@@ -1,0 +1,18 @@
+{
+  "name": "صلاتي - SALATY",
+  "short_name": "صلاتي",
+  "description": "تطبيق أوقات الصلاة والقرآن الكريم والأذكار مع اتجاه القبلة التفاعلية وموقع الخريطة",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#10b981",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'%3E%3Crect width='100' height='100' rx='22' fill='%2310b981'/%3E%3Ccircle cx='50' cy='50' r='36' fill='white' fill-opacity='0.12'/%3E%3Ccircle cx='50' cy='50' r='36' stroke='white' stroke-width='2.5' stroke-dasharray='2.5 2.5'/%3E%3Ccircle cx='50' cy='50' r='32' stroke='white' stroke-width='1.5' stroke-opacity='0.8'/%3E%3Cpath d='M37 50 C37 42 43.5 39 43.5 35 C43.5 31 47 28 50 28 C53 28 56.5 31 56.5 35 C56.5 39 63 42 63 50 Z' fill='white' fill-opacity='0.9'/%3E%3Cpath d='M50 17 C52.5 17 54.5 19 54.5 21.5 C54.5 24 52.5 26 50 26 C51.5 25.3 52.5 23.8 52.5 21.5 C52.5 19.2 51.5 17.7 50 17 Z' fill='white'/%3E%3Cline x1='50' y1='24' x2='50' y2='28' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M50 55 C43.5 50 35.5 50 27.5 55 L27.5 65 C35.5 60 43.5 60 50 65 C56.5 60 64.5 60 72.5 65 L72.5 55 C64.5 50 56.5 50 50 55 Z' fill='white'/%3E%3Cpath d='M31 57.5 Q37.5 55 43.5 57.5 M31 61 Q37.5 58.5 43.5 61 M56.5 57.5 Q62.5 55 69 57.5 M56.5 61 Q62.5 58.5 69 61' stroke='%2310b981' stroke-width='1' stroke-linecap='round'/%3E%3Cpath d='M45 65 L38 72 M55 65 L62 72' stroke='white' stroke-width='2.8' stroke-linecap='round'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

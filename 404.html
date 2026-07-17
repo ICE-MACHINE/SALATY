@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <script>
+      (function () {
+        const path = location.pathname;
+        const base = '/SALATY';
+
+        if (!path.startsWith(base)) return;
+
+        const subPath = path.slice(base.length);
+        const redirectTo = base + '/' + encodeURIComponent(subPath + location.search + location.hash);
+        window.location.replace(redirectTo);
+      })();
+    </script>
+  </head>
+  <body>
+    <h1>Redirecting...</h1>
+  </body>
+</html>
