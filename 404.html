@@ -11,7 +11,7 @@
         if (!path.startsWith(base)) return;
 
         const subPath = path.slice(base.length);
-        const redirectTo = base + '/' + encodeURIComponent(subPath + location.search + location.hash);
+        const redirectTo = base + '/?' + encodeURIComponent(subPath + location.search + location.hash);
         window.location.replace(redirectTo);
       })();
     </script>
