@@ -1,0 +1,6 @@
+{
+  "name": "صلاتي - SALATY",
+  "description": "تطبيق أوقات الصلاة والقرآن الكريم والأذكار مع اتجاه القبلة التفاعلية وموقع الخريطة",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": [""]
+}
